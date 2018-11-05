@@ -136,3 +136,55 @@ public class Demo {
     }
 
 ```
+
+## 4.面向对象
+
+* 封装性
+
+* 继承性
+
+* 多态性（多种数据类型）
+
+```java
+
+OOA:面向对象分析
+OOD:面向对象设计
+OOP:面向对象编程
+
+```
+
+### 4.1对象的定义
+
+* 声明并实例化对象：类名称 对象名称 = new 类名称()；
+* 分步完成
+  * 类名称 对象名称 = null ;
+  * 对象名称 = new 类名称()；
+* 对象调用
+  * 对象.属性；
+  * 对象.方法()；
+
+```java
+
+class Person {
+    String name;
+    int age;
+    public void say(){
+        System.out.println("name="+name+" age="+ age);
+    }
+}
+
+public class JavaDemo {
+    public static void main(String[] args){
+        //声明并实例化对象
+        Person person = new Person();
+        person.say();//name=null age=0
+        person.name = "张三";
+        person.age = 18;
+        person.say();//name=张三 age=18
+        //方法二
+        Person person1 = null;
+        person1 = new Person();
+    }
+}
+
+```
