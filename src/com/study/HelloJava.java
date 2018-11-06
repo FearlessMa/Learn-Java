@@ -73,6 +73,6 @@ class Person {
 	int age;
 
 	public void say() {
-		System.out.println("name=" + name + "age=" + age);
+		System.out.println("name=" + name + " age=" + age);
 	}
 }

@@ -177,6 +177,10 @@ public class JavaDemo {
     public static void main(String[] args){
         //声明并实例化对象
         Person person = new Person();
+        person.say();//name=null age=0
+        person.name = "张三";
+        person.age = 18;
+        person.say();//name=张三 age=18
         //方法二
         Person person1 = null;
         person1 = new Person();
