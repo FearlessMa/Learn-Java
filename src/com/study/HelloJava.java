@@ -48,6 +48,12 @@ public class HelloJava {
 		// }
 		printMessage();
 		printMessage1(11);
+
+		Person person = new Person();
+		person.say();
+		person.name = "张三";
+		person.age = 18;
+		person.say();
 	};
 
 	public static void printMessage() {
@@ -59,4 +65,14 @@ public class HelloJava {
 		return "返回值" + num;
 
 	};
+
+}
+
+class Person {
+	String name;
+	int age;
+
+	public void say() {
+		System.out.println("name=" + name + "age=" + age);
+	}
 }
