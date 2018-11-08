@@ -54,6 +54,10 @@ public class HelloJava {
 		person.name = "张三";
 		person.age = 18;
 		person.say();
+		Person1 person1 = new Person1();
+        person1.setName("张三pervaite");
+        person1.setAge(-18);
+        person1.tell();
 	};
 
 	public static void printMessage() {
@@ -75,4 +79,29 @@ class Person {
 	public void say() {
 		System.out.println("name=" + name + " age=" + age);
 	}
+}
+
+class Person1 {
+	private String name;
+	private int age;
+
+	public void setName(String a) {
+		name = a;
+	};
+
+	public void setAge(int age1) {
+		age = age1;
+	};
+
+	public String getName() {
+		return name;
+	};
+
+	public int getAge() {
+		return age;
+	};
+
+	public void tell() {
+		System.out.print("name=" + name + " age=" + age);
+	};
 }

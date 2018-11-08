@@ -191,12 +191,82 @@ public class JavaDemo {
 
 ### 4.2对象与内存分析
 
- * <font color='red'>堆内存：保存对象的具体信息，在程序中堆内存的空间开辟是通过new完成的</font>
+* <font color='red'>堆内存：保存对象的具体信息，在程序中堆内存的空间开辟是通过new完成的</font>
 
- * <font color='red'>栈内存：保存一块堆内存的地址，即通过地址找到堆内存，而后找到对象内容。基本类型也保存在栈内存中</font>
+* <font color='red'>栈内存：保存一块堆内存的地址，即通过地址找到堆内存，而后找到对象内容。基本类型也保存在栈内存中</font>
 
 <!-- ![tu]('/img/obj.jpg') -->
 
 ### 4.3内存的引用传递
 
- * 同一块堆内存可以被不同的栈内存引用，也可以更换引用的栈内存
+* 同一块堆内存可以被不同的栈内存引用，也可以更换引用的栈内存
+
+### 4.4 类成员属性的封装
+
+* 在类外部可以调用并赋值。会造成属性不安全，需要室使用<font color='red'><b>private</b></font>关键字对属性进行封装处理.
+* 属性封装后外部不能直接访问,对类的内部是可见的.
+* 使用 <font color='red'><b>setter</b></font>或<font color='red'><b>getter</b></font>方法。
+
+  * 设置属性 setXxx();例如 public Void setName(String n);
+  * 获取属性 getXxx();例如 public getName()；
+* <font color='red'><b>类中的大部分属性都要用private封装，需要访问就要有setter和getter方法。</b></font>
+
+```java
+
+//未封装
+public class Person{
+    String name;
+    int age;
+    public void tell(){
+        System.out.print("name="+name+" age="+age);
+    };
+}
+
+public class JavaDemo{
+    //主函数
+    public static void main(String[] args){
+        Person person = new Person();
+        person.name = "张三";
+        person.age = 18;
+        person.tell();
+    }
+}
+
+// 使用private封装
+
+class Person1 {
+	private String name;
+	private int age;
+
+	public void setName(String a) {
+		name = a;
+	};
+
+	public void setAge(int age1) {
+		age = age1;
+	};
+
+	public String getName() {
+		return name;
+	};
+
+	public int getAge() {
+		return age;
+	};
+
+	public void tell() {
+		System.out.print("name=" + name + " age=" + age);
+	};
+}
+
+public class JavaDemo{
+    //主函数
+    public static void main(String[] args){
+        Person person1 = new Person1();
+        person1.setName("张三");
+        person1.setAge(18);
+        person1.tell();
+    }
+}
+
+```
