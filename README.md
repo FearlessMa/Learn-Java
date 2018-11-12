@@ -158,7 +158,7 @@ OOP:面向对象编程
 * 声明并实例化对象：类名称 对象名称 = new 类名称()；
 * 分步完成
   * 类名称 对象名称 = null ;
-  * 对象名称 = new 类名称()；
+  * 对象名称 = new 类名称();
 * 对象调用
   * 对象.属性；
   * 对象.方法()；
@@ -266,6 +266,48 @@ public class JavaDemo{
         person1.setName("张三");
         person1.setAge(18);
         person1.tell();
+    }
+}
+
+```
+
+### 4.5构造方法与匿名对象
+
+* 构造方法：<font color='red'>可以通过构造方法实现实例化对象中的属性初始化</font>
+
+* java中的构造方法：
+  * 构造方法名称必须与类名称保持一致。
+  * 构造方法不允许设置任何返回值类型，即:没有返回值定义
+  * 构造方法是在使用关键字new实例化对象时自动调用的
+
+* 构造方法重载，可以按照参数的个数排列。
+* 构造方法是实例化时候初始属性值，setter可以设置属性值也可以修改属性值
+
+* 构造方法为什么不允许设置任何返回值类型或viod
+  * 如果有void或返回值结构就与普通函数完全相同，编译器无法区分,构造方法与普通方法最大的区别在于，一个是实例化时候调用，一个是实例化后调用。
+
+```java
+
+class Person {
+    private String name;
+    private int age;
+    // 方法名称与类名称相同
+    public Person(String n , int a){//定义有参构造
+        name = n;
+        age = a;
+    };
+    public static void tell(){
+        System.out.println("hello");
+    };
+    public String getName() {
+        return name;
+    }
+}
+
+public class JavaDemo{
+    public static void main(String[]arg){
+        Person per = new Person("ZhangSan",14);
+        per.getName()//ZhangSan
     }
 }
 

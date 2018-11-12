@@ -58,6 +58,9 @@ public class HelloJava {
         person1.setName("张三pervaite");
         person1.setAge(-18);
         person1.tell();
+        
+        Person2 per2 = new Person2("lili",12);
+        System.out.println(per2.getName());
 	};
 
 	public static void printMessage() {
@@ -72,6 +75,22 @@ public class HelloJava {
 
 }
 
+
+class Person2 {
+	private String name;
+    private int age;
+    // 方法名称与类名称相同
+    public Person2(String n , int a){//定义有参构造
+        name = n;
+        age = a;
+    };
+    public static void tell(){
+        System.out.println("hello");
+    };
+    public String getName() {
+    	return name;
+    }
+}
 class Person {
 	String name;
 	int age;
@@ -102,6 +121,6 @@ class Person1 {
 	};
 
 	public void tell() {
-		System.out.print("name=" + name + " age=" + age);
+		System.out.println("name=" + name + " age=" + age);
 	};
 }
