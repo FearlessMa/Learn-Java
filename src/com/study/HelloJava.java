@@ -80,15 +80,16 @@ class Person2 {
 	private String name;
     private int age;
     // 方法名称与类名称相同
-    public Person2(String n , int a){//定义有参构造
-        name = n;
-        age = a;
+    public Person2(String name , int age){//定义有参构造
+        this.name = name;
+        this.age = age;
     };
     public static void tell(){
         System.out.println("hello");
     };
     public String getName() {
-    	return name;
+    	System.out.println(this);
+    	return this.name;
     }
 }
 class Person {

@@ -312,3 +312,114 @@ public class JavaDemo{
 }
 
 ```
+
+* 匿名对象：使用一次后，将被GC回收♻️。
+* 只要是方法就可以传递任意数据类型。
+
+```java
+new Person("李四",18).getName();//李四
+```
+
+## 5.this关键字
+
+* this上下文执行环境
+  * 当前类中的属性：this.属性；
+  * 当前类中的方法：this.方法名()，this()调用构造方法;
+  * this描述当前的对象
+
+```java
+
+class Person{
+    private String name;
+    private int age;
+    public void setName(String namen){
+        this.name=name;
+    };
+    public String getName(){
+        return this.name;
+    };
+
+    public Person(String name, int age){
+        this.setName(name);//this.name = name;
+        this.age = age;
+    };
+
+}
+
+public class JavaDemo{
+    public static void main(String[]arg){
+        Person per = new Person("张三",12);
+    }
+}
+
+```
+
+* this()的使用。实现代码复用。如多构造函数中.
+  * 构造方法必须在实例化新对象的时候调用，所以this()的语句只允许出现在构造方法的首行。
+
+```java
+
+class Person{
+    private String name;
+    private int age;
+
+    //无参数
+    public Person(){
+        System.out.println("一个新的实例对象生成");
+    };
+
+    // 单参数
+    public Person(String name){
+        this();//调用无参数
+        this.name = name;
+    };
+    // 双参数
+    public Person(String name, int age){
+        this(name);//调用单参数
+        this.age = age;
+    };
+
+    public void setName(String namen){
+        this.name=name;
+    };
+    public String getName(){
+        return this.name;
+    };
+
+
+}
+
+public class JavaDemo{
+    public static void main(String[]arg){
+        Person per = new Person("张三",12);
+    }
+}
+
+```
+
+```java
+//联系构造方法互相调用
+class Emp{
+    private String empName;
+    private int empNo;
+    private String empGroup;
+    private double empSalary;
+
+    public Emp(){
+        this("无名氏",1000,null);
+    }
+
+    public Emp(String empName, int empNo, String empGroup){
+        this(enpName,empNo,empGroup,2500.00);
+    }
+
+    public Emp(Sting empName, int empNo, String empGroup, double empSalary ){
+        this.empName = empName;
+        this.empNo = empNo;
+        this.empGroup = empGroup;
+        this.empSalary = empSalary;
+    }
+
+}
+
+```
