@@ -61,6 +61,8 @@ public class HelloJava {
         
         Person2 per2 = new Person2("lili",12);
         System.out.println(per2.getName());
+        Dept dept = new Dept(12345L,"北京部门","北京");
+        System.out.println(dept.getInfo());
 	};
 
 	public static void printMessage() {
@@ -74,7 +76,39 @@ public class HelloJava {
 	};
 
 }
+class Dept { //类名称描述明确的某类事物
+    private long deptno;
+    private String deptname;
+    private String loc;
+    public Dept(){}//必须要提供有无参构造
+    public Dept(long deptno, String deptname, String loc){
+        this.deptno = deptno;
+        this.deptname = deptname;
+        this.loc = loc;
+    }
+    public void setDeptNo(long deptno){
+        this.deptno = deptno ;
+    }
+    public void setDeptName(String deptname){
+        this.deptname = deptname;
+    }
+    public void setLoc(String loc){
+        this.loc = loc;
+    }
+    public long getDeptNo(){
+        return this.deptno;
+    }
+    public String getDeptName(){
+        return this.deptname;
+    }
+    public String getLoc(){
+        return this.loc;
+    }
+    public String getInfo(){
+        return "【部门信息】:"+"部门名称:"+this.deptname+"、部门编号"+this.deptno+"、部门位置"+this.loc;
+    }
 
+}
 
 class Person2 {
 	private String name;

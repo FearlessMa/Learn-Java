@@ -423,3 +423,226 @@ class Emp{
 }
 
 ```
+
+## 6. 简单java类
+
+* 简单java类：可以描述一类信息的程序类。并且在这个类中没有复杂的逻辑操作，只作为一种信息的存储媒介。
+  * 类名称一定要有意义，可以明确描述某一类事物。
+  * 类中的所有属性必须使用privatej进行封装，同时封装后必须要有getter和setter方法。
+  * 类之中可以有多个构造方法，必须要有无参构造方法。
+  * 类之中不允许出现任何输出内容。
+  * 非必须 : 可以提供一个获取对象详细信息方法，暂定方法名为getInfo()。
+
+```java
+
+class Dept { //类名称描述明确的某类事物
+    private long deptno;
+    private String deptname;
+    private String loc;
+    public Dept(){}//必须要提供有无参构造
+    public Dept(long deptno, String deptname, String loc){
+        this.deptno = deptno;
+        this.deptname = deptname;
+        this.loc = loc;
+    }
+    public void setDeptNo(long deptno){
+        this.deptno = deptno ;
+    }
+    public void setDeptName(String deptname){
+        this.deptname = deptname;
+    }
+    public void setLoc(String loc){
+        this.loc = loc;
+    }
+    public long getDeptNo(){
+        return this.deptno;
+    }
+    public String getDeptName(){
+        return this.deptname;
+    }
+    public String getLoc(){
+        return this.loc;
+    }
+    public String getInfo(){
+        return "【部门信息】:"+"部门名称:"+this.deptname+"、部门编号"+this.deptno+"、部门位置"+this.loc;
+    }
+
+}
+
+public class JavaDemo{
+    public static void main(String [] arg){
+        Dept dept = new Dept(12345L,"北京部门","北京");
+        System.out.println(dept.getInfo());
+    }
+}
+
+
+```
+
+## 7. static、public、private
+
+* public :
+    * 具有最大的访问权限，可以访问任何一个在classpath下的类、接口、异常等。它往往用于对外的情况，也就是对象或类对外的一种接口的形式。
+
+* private :
+
+    * 访问权限仅限于类的内部，是一种封装的体现，例如，大多数成员变量都是修饰符为private的，它们不希望被其他任何外部的类访问。
+
+* static :
+
+    * （概念）static表示“全局”或者“静态”的意思，用来修饰成员变量和成员方法，也可以形成静态static代码块，但是Java语言中没有全局变量的概念。
+
+    * （概念）用public修饰的static成员变量和成员方法本质是全局变量和全局方法，当声明它类的对象时，不生成static变量的副本，而是类的所有实例共享同一个static变量。
+
+    * （概念）只要这个类被加载，Java虚拟机就能根据类名在运行时数据区的方法区内找到他们。因此，static对象可以在它的任何对象创建之前访问，无需引用任何对象。 
+
+![static](img/static1.png)
+![static](img/static2.png)
+
+### 代码块 {}
+
+* 普通块 {}
+
+* 构造块 构造类中的代码块
+
+* 静态块 static {}
+
+## 8.数组
+
+ * 数组定义：
+
+ * 数组的定义：
+    * 数组动态初始化：（声明并初始化数组）
+        * 数据类型 数组名 [] = new 数据类型 [数组长度] ;
+        * 数据类型 [] 数组名  = new 数据类型 [数组长度] ;
+        * 数组每一个元素保存的值为默认值。对象(null),int(0)等
+    * 数组静态初始化：在数组定义时就是设置好数组内容
+        * 数据类型 数组名 [] = new 数据类型 [] {数据,数据,...};
+        * 数据类型 [] 数组名 = {数据,数据,...};
+
+ * 二维数组：
+    * 数组定义：
+        * 数据类型 数组名 [][] = new 数据类型 [数组行数][数组列数];
+        * 数据类型 数组名 [][] = {{数据,...},{数据,...},...}
+
+ * 数组操作
+    * length：数组长度
+    * 数组元素： 数组名[下标] （下标越界报错）
+    * for、foreach循环
+        * for: for(int i =0; i<数组名.length; i++){}
+        * foreach: for(数据类型 item : 数组名){}
+
+ * 数组相关操作
+    * 排序 : 
+        * 内置方法 java.util.Array.sort(数组)；
+        * 实现int类型数组排序
+
+    ```java
+
+    ```
+
+    * 数组反置：
+
+    ```java
+    public class JavaDemo {
+        public static void main(String [] arg) {
+            int arr1 [] = new int [] {1,2,3,4,5};
+            ArrayUtil.printArray(arr1);
+            ArrayUtil.reverseArr(arr1);
+            ArrayUtil.printArray(arr1);
+        }
+    }
+    //输出结果
+    //1、2、3、4、5、
+    //5、4、3、2、1、
+    //实现方法多种
+    class ArrayUtil{
+        public static void reverseArr(int arr []) {
+            int len = arr.length-1;
+            for(int i = 0 ; i <arr.length; i++) {
+                if(i>len-i) {
+                    break ;
+                }
+                int temp = arr[i];
+                arr[i] = arr[len-i];
+                arr[len-i] =temp;
+            }
+        }
+        public static void printArray (int [] arr) {
+            for(int item :arr) {
+                System.out.print(item+"、");
+            }
+            System.out.println();
+        }
+    }
+    ```
+    * 数组拷贝 ：元素替换
+        * System.arraycopy(原数组,原数组开始点,目标数组,目标数组开始点,拷贝长度);
+
+ * 数组参数可变：可以通过方法参数使用...（扩展运算符收集参数，获得参数的数组对象）
+
+```java
+    public class JavaDemo{
+        public static void main(String arg []){
+            //需要传递数组
+            ArrayUtil.sum(new int [] {1,2,3});//6
+            //使用扩展运算符收集参数的方法，可以传递任意多个参数
+            ArrayUtil.sum1(1,2,3);//6
+
+
+        }
+    }
+    //sum接收数组
+    class ArrayUtil{
+        public static int sum(int arr []){
+            int sum = 0;
+            for(int item : arr){
+                sum += item;
+            }
+            return sum;
+        }
+        //通过扩展运算符收集参数
+        public static int sum1(int ...arr){
+            int sum = 0;
+            for(int item : arr){
+                sum += item;
+            }
+            return sum;
+        }
+    }
+
+```
+
+ * 对象数组
+    * 动态初始化： 类 数组名 [] = new 类 [数组长度]; 默认值null
+    * 静态初始化： 类 数组名 [] = new 类 [] { 实例化对象,...}
+    * 列子
+    ```java
+        public class JavaDem{
+            public static void main(String [] arg ){
+                Person per [] = new Person [] {
+                    new Person("张三",20),
+                    new Person("李四",20),
+                    new Person("王五",20)
+                };
+            }
+        }
+
+        class Person {
+            private String name;
+            private int age;
+            public Person(){
+                this("无名氏",0);
+            }
+            public Person(String name, int age){
+                this.name = name;
+                this.age = age;
+            }
+            public String getInfo(){
+                return "name:"+this.name+"、age:"+this.age;
+            }
+        }
+    ```
+    * 内存分析
+    ![](img/objArray.png)
+
