@@ -650,4 +650,156 @@ public class JavaDemo{
 
 ## 9.继承
 
-* 
+* 面向对象的继承特点：可以扩充已有类的功能。可重用性高。
+
+* 实现继承： extends 
+    * class 子类 extends 父类
+        * 子类也叫做派生类
+        * 父类叫做超类（superClass）
+
+* 继承的基本实现
+    * 继承中的主要目的是在于子类可以重用父类的结构，并且也可以实现功能的扩展，子类可以定义更多的内容，更具体的描。
+    * 子类实例化对象时默认是自动调用父类构造方法实例化父类对象。
+    * super: super()表示子类调用父类构造方法，次方法只允许放在子类构造方法首行，super()只会调用父类无参构造，super(参数)调用有参数构造。
+    * super与this都可以调用构造方法，super是子类调用父类构造方法，而this是调用本类的构造方法，两个语句都一定要放在构造方法首行，<strong>两个语句不允许同事出现</strong>
+
+```java
+    // 栗子1
+    class PersonExtends {
+    private String name;
+    private int age;
+    public void setName(String name){
+        this.name = name ;
+    }
+    public void setAge(int age){
+        this.age = age ;
+    }
+    public void getInfo() {
+        System.out.println("name=" + this.name + "、age=" + this.age);
+    }
+}
+
+class Student extends PersonExtends {
+}
+
+public class JavaExtends {
+    public static void main(String[] args) {
+        Student std = new Student();
+        std.setName("ma");
+        std.setAge(11);
+        std.getInfo();  //name=ma、age=11
+    }
+}
+```
+
+```java
+class PersonExtends {
+    private String name;
+    private int age;
+
+    public PersonExtends(String name, int age) {
+    this.name = name;
+    this.age = age;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void getInfo() {
+        System.out.println("name=" + this.name + "、age=" + this.age);
+    }
+}
+
+class Student extends PersonExtends {
+    private String school;
+
+    public void setSchool(String school){
+        this.school = school;
+    }
+    public String getSchool(){
+        return this.school;
+    }
+    public Student(String name, int age, String school) {
+        super(name, age); //明确调用父类构造
+        this.school = school;
+    }
+}
+
+public class JavaExtends {
+    public static void main(String[] args) {
+        Student std = new Student("MA",12,"school");
+        // std.setName("ma");
+        // std.setAge(11);
+        std.getInfo();        //name=MA、age=12
+        // std.setSchool("school");
+        System.out.println(std.getSchool()); //school
+    }
+
+}
+
+```
+
+* 继承限制
+    * java中不允许多重继承，只允许多层继承。（不能同时继承多个类，可以顺序继承多层）
+        * 多重继承是希望可以同时继承多个类的方法，而面对与多重继承的要求，多层继承将范围限制在同于类中。
+        * 多层继承理论上不应该继承三层，过多继承会导致过于复杂，混乱。
+        ```java
+            class A {};
+            class B {};
+            class c extends A,B{} //多重继承，不允许
+
+            class A {};
+            class B extends A {};
+            class C extends B {}; //多层继承
+        ```
+    * 在定义继承关系时，子类可以继承父类中的所有操作结构。对于私有（private)操作属于隐式继承，对于所有非私有操作属于显示继承。
+    ```java
+        class PersonExtends {
+            private String name;
+            private int age;
+
+            public void setName(String name) {
+                this.name = name;
+            }
+
+            public void setAge(int age) {
+                this.age = age;
+            }
+
+            public void getInfo() {
+                System.out.println("name=" + this.name + "、age=" + this.age);
+            }
+        }
+
+        class Student extends PersonExtends {
+            private String school;
+
+            public void setSchool(String school){
+                this.school = school;
+            }
+            public String getSchool(){
+                getInfo(); //调用显示继承的方法
+                return this.school;
+            }
+            public Student(String name, int age, String school) {
+                this.school = school;
+                setName(name);//调用显示继承的方法
+                setAge(age);//调用显示继承的方法
+            }
+        }
+
+        public class JavaExtends {
+            public static void main(String[] args) {
+                Student std = new Student("MA",12,"school");
+                std.getInfo();
+                System.out.println(std.getSchool());
+            }
+
+        }
+    ```
+
