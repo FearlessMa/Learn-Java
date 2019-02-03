@@ -803,3 +803,166 @@ public class JavaExtends {
         }
     ```
 
+* 覆写
+    * 方法覆写： 当子类定义了与父类方法名称相同，参数类型及个数完全相同，称为方法的覆写。(使用规则类似js原型链，子类没有调用父类方法)
+    ```java
+        class Channel {
+            public void connect(){
+                System.out.println("channel 的父类 的链接");
+            }
+        }
+
+        class DataBaseChannel extends Channel{//子类 连接
+            public void connect(){
+                System.out.println("DataBaseChannel 进行数据库连接");
+            }
+        }
+
+        public class JavaDemo {
+            public static void main(String [] args ){
+                Channel channel = new Channel();
+                channel.connect();
+                //channel 的父类 的链接
+                DataBaseChannel dbChannel = new DataBaseChannel();
+                dbChannel.connect();
+                //DataBaseChannel 进行数据库连接
+            }
+        }
+    ```
+    * 方法覆写后想调用父类的方法，需要使用super调用父类中的覆写方法，为防止调用错误，只要子类调用父类方法时，直接使用super调用
+    ```java
+        class Channel {
+            public void connect(){
+                System.out.println("channel 的父类 的链接");
+            }
+        }
+
+        class DataBaseChannel extends Channel{//子类 连接
+            public void connect(){
+                super.connect();//调用父类方法
+                System.out.println("DataBaseChannel 进行数据库连接");
+            }
+        }
+
+        public class JavaDemo {
+            public static void main(String [] args ){
+                Channel channel = new Channel();
+                channel.connect();
+                //channel 的父类 的链接
+                DataBaseChannel dbChannel = new DataBaseChannel();
+                dbChannel.connect();
+                //channel 的父类 的链接
+                //DataBaseChannel 进行数据库连接
+            }
+        }
+    ```
+* 覆写方法限制
+
+    * 被覆写的方法不能拥有不父类更为严格的访问控制权限
+        * public > default(没有任何关键字)>private
+        * 父类public 子类只能使用public定义
+        * 父类 default 子类 可以使用public 或default定义
+    * private 定义的方法，不会被覆写，private 是私有 不可见。
+    * OverLading、Override
+
+|OverLading | Override|
+|-----------|---------|
+|重载 | 覆写|
+|中方法名称相同，方法参数不同 | 方法名称相同，方法参数相同|
+|没有权限限制 | 子类不能比父类更严格的权限限制|
+|同一个类中 | 继承关系中|
+|返回类型没有显示|返回类型一致|
+
+* 属性覆盖
+    定义： 当子类定义了与父类相同名称的属性就称为属性覆盖。
+    * 没有封装的属性
+    ```java
+        class Channel {
+            String info = "Channel";
+            public void connect(){
+                System.out.println("channel 的父类 的链接");
+            }
+        }
+
+        class DataBaseChannel extends Channel{//子类 连接
+            String info = "DataBaseChannel";
+            public String getParentClassInfo(){
+                return super.info;
+            }
+            public void connect(){
+                super.connect();
+                System.out.println("DataBaseChannel 进行数据库连接");
+            }
+        }
+
+        public class JavaDemo01 {
+            public static void main(String [] args){
+                DataBaseChannel dbChannel = new DataBaseChannel();
+                System.out.println(dbChannel.info);
+                //DataBaseChannel
+                System.out.println(dbChannel.getParentClassInfo());
+                //Channel
+            }
+        }
+    ```
+    * 封装的属性
+        * 父类使用private封装后，子类定义同命属性，相当于子类定义了新的属性。
+    
+* this 与 super 区别
+    |this|super|
+    |----|-----|
+    |this优先查找当前类，如果当前类中没有，则继续查找父类|直接查找父类|
+    |构造方法首行，调用本类构造|构造方法首行，调用父类构造|
+    |this可以表示当前对象|super表示父类|
+
+* final关键字
+    * 定义： final代表终结器，定义不能够被继承的类，方法，定义常量。
+    ```java
+        //栗子1
+        final class Channel{//不能被继承
+        }
+        //错误: 无法从最终Channel进行继承
+        class DatabaseChannel extends Channel{
+        }
+
+        //栗子2
+        class Channel{
+            public final void connect(){
+
+            }
+        }
+            //错误: DatabaseChannel中的connect()无法覆盖Channel中的connect()
+            //public void connect(){
+            //             ^
+            //被覆盖的方法为final
+        class DatabaseChannel extends Channel{
+            public void connect(){
+            }
+        }
+    ```
+    * final 定义常量
+        * 全局常量 ： public static final
+    ```java
+        //错误: 无法为最终变量NAME分配值
+        //this.NAME = "change";
+        class Channel{
+            public static final String NAME = "Channel";
+            public void connect(){
+                this.NAME = "change";
+            }
+        }
+        //常量
+        public static void main(String [] args){
+            String strA = "abc"; //变量
+            String strB = "abcABC";
+            String StrC = strA + "ABC";
+            System.out.println(strA == strC); //false
+        }
+        public static void main(String [] args){
+            String final strA = "abc";//常量
+            String strB = "abcABC";
+            String StrC = strA + "ABC";
+            System.out.println(strA == strC); //true
+        }
+    ```
+
