@@ -5,6 +5,9 @@ class Person {
     public void fire(){
         System.out.println("fire");
     }
+    public Person (){
+        System.out.println("无参构造被调用");
+    }
 }
 
 class SuperMan extends Person{
