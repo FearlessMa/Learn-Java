@@ -905,8 +905,9 @@ public class JavaExtends {
             }
         }
     ```
+
     * 封装的属性
-        * 父类使用private封装后，子类定义同命属性，相当于子类定义了新的属性。
+        * 父类使用private封装后，子类定义同命属性，相当于子类定义了新的属性。
     
 * this 与 super 区别
     |this|super|
