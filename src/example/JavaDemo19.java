@@ -1,10 +1,10 @@
 
 class Parent {
-    @Override
-    public String toString() {
-        System.out.println("parent  toString");
-        return super.toString();
-    }
+    // @Override
+    // public String toString() {
+    //     System.out.println("parent  toString");
+    //     return super.toString();
+    // }
 }
 
 class Child extends Parent {
@@ -17,11 +17,11 @@ class Child extends Parent {
 
 public class JavaDemo19 {
     public static void main(String [] args){
-        Parent c = new Child();
+        // Parent c = new Child();
         // Child c = new Child();
-        // Parent p = new Parent();
-        System.out.println(c.toString());
-        // System.out.println(p.toString());
+        Object p = new Parent();
+        // System.out.println(c.toString());
+        System.out.println(p.toString());
 
     }
 }

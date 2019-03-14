@@ -996,3 +996,5 @@ public class JavaExtends {
 ## [枚举](md/枚举.md)
 
 ## [异常](md/异常.md)
+
+## [内部类](md/内部类.md)

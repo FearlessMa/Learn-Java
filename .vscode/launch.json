@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - JavaDemo29",
+            "request": "launch",
+            "mainClass": "example.JavaDemo29",
+            "projectName": "learn-java"
+        }
+    ]
+}
