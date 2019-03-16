@@ -998,3 +998,7 @@ public class JavaExtends {
 ## [异常](md/异常.md)
 
 ## [内部类](md/内部类.md)
+
+## [Lamda表达式](md/Lamda表达式.md)
+
+## [链表](md/链表.md)
