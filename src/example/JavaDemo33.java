@@ -9,6 +9,12 @@ interface ILink<E> { // 设置泛型避免安全隐患
     public Object[] toArray(); // 返回数据集合
 
     public E get(int index); // 获取指定索引数据
+
+    public void set(int index, E data); // 修改指定数据
+
+    public Boolean contains(E data);// 判断指定数据是否存在
+
+    public void remove(E data); // 数据的删除
 }
 
 class LinkImpl<E> implements ILink<E> {
@@ -45,6 +51,34 @@ class LinkImpl<E> implements ILink<E> {
             }
         }
 
+        public void setIndex(int index, E data) {
+            if (LinkImpl.this.foot++ == index) {
+                this.data = data;
+            } else {
+                this.next.setIndex(index, data);
+            }
+        }
+
+        public Boolean equalsNode(E data) {
+            if (data.equals(this.data)) {
+                return true;
+            } else {
+                if (this.next == null) {
+                    return false;
+                }
+                return this.next.equalsNode(data);
+            }
+        }
+
+        public void removeNode(Node preNode, E data) {
+            if (this.data.equals(data)) {
+                preNode.next = this.next;
+            } else {
+                if (preNode.next != null) {
+                    this.next.removeNode(this, data);
+                }
+            }
+        }
         // ---------------没有添加getter 和 setter 方法 是因为内部类的私有属性也方便外部类直接访问-------
     }
 
@@ -98,9 +132,41 @@ class LinkImpl<E> implements ILink<E> {
         if (index >= this.count) {
             return null;
         }
-        return (E) this.toArray()[index];
-        // this.foot = 0;
-        // return this.root.getIndex(index);
+        // return (E) this.toArray()[index];
+        this.foot = 0;
+        return this.root.getIndex(index);
+    }
+
+    @Override
+    public void set(int index, E data) {
+        if (index > this.count) {
+            System.out.println("参数不合法");
+        } else {
+            this.foot = 0;
+            this.root.setIndex(index, data);
+        }
+    }
+
+    @Override
+    public Boolean contains(E data) {// 判断指定数据是否存在
+        if (data == null)
+            return false;
+        return this.root.equalsNode(data);
+    }
+
+    @Override
+    public void remove(E data) { // 数据的删除
+        if (this.contains(data)) {
+            // this.foot = 0;
+            if (this.root.data.equals(data)) {
+                this.root = this.root.next;
+            } else {
+                if (this.root.next != null) {
+                    this.root.next.removeNode(this.root, data);
+                }
+            }
+            this.count--;
+        }
     }
 }
 
@@ -111,10 +177,17 @@ public class JavaDemo33 {
         n.add("No1");
         n.add("No2");
         n.add("No3");
-        for (Object item : n.toArray()) {
-            System.out.println((String) item);
-        }
+        // for (Object item : n.toArray()) {
+        // System.out.println((String) item);
+        // }
+        n.set(1, "修改index=1的数据");
+        n.remove("No3");
         System.out.println("【增加之后】 链表个数= " + n.size() + "、是否为空" + n.isEmpty());
         System.out.println(n.get(0));
+        System.out.println(n.get(1));
+        System.out.println(n.get(2));
+        System.out.println(n.contains("No3"));
+        System.out.println(n.contains("No4"));
+        System.out.println(n.contains(null));
     }
 }
