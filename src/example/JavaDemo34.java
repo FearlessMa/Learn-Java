@@ -178,26 +178,104 @@ class LinkImpl<E> implements ILink<E> {
     }
 }
 
-public class JavaDemo33 {
-    public static void main(String args[]) {
-        LinkImpl<String> n = new LinkImpl<>();
-        System.out.println("【增加之前】 链表个数= " + n.size() + "、是否为空" + n.isEmpty());
-        n.add("No1");
-        n.add("No2");
-        n.add("No3");
-        // for (Object item : n.toArray()) {
-        // System.out.println((String) item);
-        // }
-        n.set(1, "修改index=1的数据");
-        n.remove("No3");
-        System.out.println("【增加之后】 链表个数= " + n.size() + "、是否为空" + n.isEmpty());
-        System.out.println(n.get(0));
-        System.out.println(n.get(1));
-        System.out.println(n.get(2));
-        System.out.println(n.contains("No3"));
-        System.out.println(n.contains("No4"));
-        System.out.println(n.contains(null));
-        n.clean();
-        System.out.println("【clean之后】 链表个数= " + n.size() + "、是否为空" + n.isEmpty());
+interface Pet {
+    public String getName();
+
+    public String getColor();
+}
+
+class PetShop {
+    private ILink<Pet> allPets = new LinkImpl<>();// 保存多个宠物
+
+    public void add(Pet pet) { // 增加宠物
+        this.allPets.add(pet);
+    }
+
+    public void delete(Pet pet) {// 删除
+        this.allPets.remove(pet);
+    }
+
+    public ILink<Pet> search(String keyWord) {
+        ILink<Pet> res = new LinkImpl<>();
+        Object result[] = this.allPets.toArray();
+        if (result != null) {
+            for (Object obj : result) {
+                // if (((Pet) obj).getName().contains(keyWord) ||
+                // ((Pet) obj).getColor.contains(keyWord)) {
+                // res.add((Pet) obj);
+                // }
+                if ((((Pet) obj).getColor().contains(keyWord)) || (((Pet) obj).getName().contains(keyWord))) {
+                    res.add((Pet) obj);
+                }
+            }
+        }
+        return res;
+    }
+}
+
+class Cat implements Pet {
+    private String name;
+    private String color;
+
+    public Cat(String name, String color) {
+        this.color = color;
+        this.name = name;
+    }
+
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
+    public String getColor() {
+        return this.color;
+    }
+
+    @Override
+    public String toString() {
+        return "宠物猫：名字是" + this.name + "、颜色：" + this.color;
+    }
+}
+
+class Dog implements Pet {
+    private String name;
+    private String color;
+
+    public Dog(String name, String color) {
+        this.color = color;
+        this.name = name;
+    }
+
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
+    public String getColor() {
+        return this.color;
+    }
+
+    @Override
+    public String toString() {
+        return "宠物狗：名字是" + this.name + "、颜色：" + this.color;
+    }
+}
+
+public class JavaDemo34 {
+    public static void main(String[] args) {
+        PetShop shop = new PetShop();
+        shop.add(new Cat("黄猫", "黄色"));
+        shop.add(new Dog("花狗", "黄斑色"));
+        shop.add(new Cat("梨花猫", "黄黑色"));
+        shop.add(new Dog("黑狗", "黑色"));
+        Object[] res = shop.search("黄").toArray();
+        if (res != null) {
+            for (Object obj : res) {
+                System.out.println(((Pet) obj).toString());
+            }
+        }
+        System.out.println("黄色".equals("黄"));
     }
 }
