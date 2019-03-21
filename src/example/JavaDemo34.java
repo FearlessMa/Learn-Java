@@ -277,5 +277,9 @@ public class JavaDemo34 {
             }
         }
         System.out.println("黄色".equals("黄"));
+        fun();
+    }
+    public static void fun(){
+        System.out.println(1);
     }
 }
