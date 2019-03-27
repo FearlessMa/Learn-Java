@@ -110,6 +110,11 @@ class Persons {
 		country = "111";
 	}
 
+	@Override
+	public String toString() {
+		return "Persons [name=" + name + ", age=" + age + "]";
+	}
+
 	public String getInfo() {
 		System.out.println("name:" + this.name + "age:" + this.age + "country:" + this.country);
 		return "name:" + this.name + "age:" + this.age + "country:" + this.country;
