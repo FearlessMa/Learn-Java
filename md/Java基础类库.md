@@ -244,7 +244,7 @@ public class JavaDemo46 {
 * 什么是GC ？ 如何处理？
     * GC(Garbage Collector)垃圾收集器，是可以由系统自动掉用的垃圾释放功能，或者使用Runtime类中的 gc()方法手动调用GC回收垃圾。
 
-## 第7章 » 课时30 System类
+## System类
 
 * jdk1.0开始可以使用
 
@@ -273,4 +273,148 @@ public class JavaDemo46 {
         }
         long end = System.currentTimeMillis();
         System.out.println("操作耗时" + (end - start));//操作耗时375 毫秒
+```
+
+## 第7章 » 课时31 Cleaner类
+
+* jdk1.9之后提供的一个对象清理操作。其主要的功能是进行finalize()方法的替代。
+
+    * 在C++里有两种特殊的函数 ，构造函数，析构函数(对象的手工回收)，在Java里所有的垃圾都是通过GC自动回收的，很多情况下java并不需要使用析构函数，所以没有提供这方面的支持。
+    * 为了给用户一个这样的收尾操作，每一个实例化对象在回收之前可执行一些行为。最初提供这个方法的是Object类中的finalize()方法。
+
+    * @Deprecated(since="9")
+    protected void finalize​() throws Throwable
+
+```java
+
+class Member {
+    public Member() {
+        System.out.println("构造方法，生成实例对象");
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        System.out.println("在被回时候执行输出了这句话");
+    }
+}
+
+public class JavaDemo47 {
+    public static void main(String[] args) {
+        Member m = new Member();
+        //构造方法，生成实例对象
+        m = null;
+        System.gc();
+        // 手动调用gc才会输出下面内容
+        //在被回时候执行输出了这句话
+    }
+}
+```
+
+* jdk1.9开始已经不建议使用以上方式回收对象了。
+
+* 从jdk1.9开始建议使用AutoCloseable 或者java.lang.ref.Cleaner类进行回收(Cleaner也支持AutoCloseable)
+
+```java
+import java.lang.ref.Cleaner;
+
+class Member implements Runnable {
+    public Member() {
+        System.out.println("构造方法，生成实例对象");
+    }
+
+    @Override
+    public void run() {// 执行清除操作
+        System.out.println("在被回时候执行输出了这句话");
+    }
+}
+
+// 实现清除处理
+class MemberCleaning implements AutoCloseable {
+    // 创建一个清除处理
+    private static final Cleaner cleaner = Cleaner.create();
+    private Member member;
+    private Cleaner.Cleanable cleanable;
+
+    public MemberCleaning() {
+        this.member = new Member();
+        // 注册使用的对象
+        this.cleanable = this.cleaner.register(this, this.member);
+    }
+
+    @Override
+    public void close() throws Exception {
+        // 启动多线程，进行清除的处理
+        this.cleanable.clean();
+    }
+}
+
+public class JavaDemo47 {
+    public static void main(String[] args) {
+        try (MemberCleaning mc = new MemberCleaning()) {
+        } catch (Exception e) {
+        }
+        // 构造方法，生成实例对象
+        // 在被回时候执行输出了这句话
+    }
+}
+```
+
+<strong>
+* 新一代的清除回收处理，更多的考虑是多线程的使用，为了防止有可能造成的延迟处理，所有许多对象回收前的处理都是单独通过一个线程完成的。为了保证整体执行性能的提高。
+</strong>
+
+## 对象克隆
+
+* 对象的复制，创建一个新的对象(不是地址引用)
+
+* Object中的clone()方法
+
+    * protected Object clone​() throws CloneNotSupportedException
+
+    * 所有的类都继承自Object，所有的类都有clone()方法，但是并不是所有的类都希望被克隆。要想实现对象克隆，对象所在的类需要实现一个接口。
+
+        * Cloneable接口，此接口并没有任何的方法提供，描述的是一种能力
+        * 接口有三大主要作用：1.标准，2.能力
+
+        ```java
+            Module java.base
+            Package java.lang
+                Interface Cloneable
+        ```
+
+* clone处理操作
+
+```java
+class MClone implements Cloneable {
+    private String name;
+
+    public MClone(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();// 调用父类中的clone
+    }
+}
+
+public class JavaDemo47 {
+    public static void main(String[] args) throws CloneNotSupportedException {
+
+        MClone mc = new MClone("mc");
+        MClone cl = (MClone) mc.clone();
+        System.out.println(mc);
+        System.out.println(cl);
+        // MClone@7960847b
+        // MClone@6a6824be
+    }
+}
 ```
