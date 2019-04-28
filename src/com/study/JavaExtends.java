@@ -50,13 +50,14 @@ public class JavaExtends {
     public static void main(String[] args) {
         // PersonExtends per1 = new PersonExtends("name", 12);
         // per1.getInfo();
-        Student std = new Student("MA",12,"school");
-        // Student std = new Student("school");
-        // std.setName("ma");
-        // std.setAge(11);
-        std.getInfo();
-        // std.setSchool("school");
-        System.out.println(std.getSchool());
+        // Student std = new Student("MA",12,"school");
+        // // Student std = new Student("school");
+        // // std.setName("ma");
+        // // std.setAge(11);
+        // std.getInfo();
+        // // std.setSchool("school");
+        // System.out.println(std.getSchool());
     }
+
 
 }
