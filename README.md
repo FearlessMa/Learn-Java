@@ -1019,6 +1019,8 @@ public class JavaExtends {
 
 ## [国际化程序实现](md/国际化程序实现.md)
 
+## [开发支持类库](md/开发支持类库.md)
+
 
 
 
