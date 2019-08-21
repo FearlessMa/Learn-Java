@@ -957,13 +957,13 @@ public class JavaExtends {
             String strA = "abc"; //变量
             String strB = "abcABC";
             String StrC = strA + "ABC";
-            System.out.println(strA == strC); //false
+            System.out.println(strB == strC); //false
         }
         public static void main(String [] args){
             String final strA = "abc";//常量
             String strB = "abcABC";
             String StrC = strA + "ABC";
-            System.out.println(strA == strC); //true
+            System.out.println(strB == strC); //true
         }
     ```
 
