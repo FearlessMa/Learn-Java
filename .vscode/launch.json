@@ -2,6 +2,41 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - exampleList",
+            "request": "launch",
+            "mainClass": "chapter0.exampleList",
+            "projectName": "learn-java"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - exampleArray",
+            "request": "launch",
+            "mainClass": "chapter0.exampleArray",
+            "projectName": "learn-java"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - exampleAnnotation",
+            "request": "launch",
+            "mainClass": "chapter0.exampleAnnotation",
+            "projectName": "learn-java"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - example",
+            "request": "launch",
+            "mainClass": "chapter0.example",
+            "projectName": "learn-java"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - test",
+            "request": "launch",
+            "mainClass": "test.test",
+            "projectName": "learn-java"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - JavaDemo50",
             "request": "launch",
             "mainClass": "example.JavaDemo50",

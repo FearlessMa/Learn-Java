@@ -1,3 +1,5 @@
+package com.study;
+
 class PersonExtends {
     private String name;
     private int age;

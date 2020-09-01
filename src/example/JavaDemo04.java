@@ -1,3 +1,4 @@
+
 class IntClass {
     private int data = 10 ;
     public void setData(int data){
